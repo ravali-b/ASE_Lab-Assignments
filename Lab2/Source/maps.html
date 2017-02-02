@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="" data-ng-app="GoogleDirection">
+<head>
+    <meta t="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maps</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js" type="application/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1hbHqDQsq1_QZzwjHvoxcqJw7-WtS67M&v=3.exp&sensor=true&amp;libraries=places"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <style>
+        button {
+            background-color: floralwhite;
+            color: black;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 50%;
+        }
+        #map-canvas {
+            margin-left: 400px;
+            width: 650px;
+            height: 450px;
+        }
+        .weatherModule {
+            background:#f2f2f2;
+            height:150px;
+            width:250px;
+            border: 1px dashed #ccc;
+            padding: 1em;
+        }
+        #parent_div_1 {
+            margin-left: 400px;
+            width:300px;
+            border:1px floralwhite;
+            height:100px;
+            float:left;
+        }
+        #parent_div_2 {
+            margin-left: 50px;
+            width:300px;
+            border:1px floralwhite;
+            height:100px;
+            float:left;
+        }
+        body
+        {
+            background-image: url("pic/back3.jpg");
+            width:100%;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        ul
+        {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        li {
+            float: left;
+        }
+        a.button {
+            -webkit-appearance: button;
+            -moz-appearance: button;
+            appearance: button;
+            width:auto;
+            text-decoration: none;
+            color: initial;
+        }
+        .row {
+            margin-left: 400px;
+            color: floralwhite;
+        }
+        .home {
+            color: floralwhite;
+        }
+        h2 {
+            text-align: center;
+            color: floralwhite;
+        }
+    </style>
+</head>
+
+<body>
+<h2>MAPS WITH WEATHER</h2>
+<div class="wrapp" ng-controller="googlemapoutput">
+    <div class="row">
+        <button type="submit"><a href="home.html" style="color: black; text-decoration: none;">Back to Home</a></button><br/><br/>
+        From:
+        <input type="text"  ng-model="startcity" id="startcity" style="color:black" placeholder="Enter city"/>
+        &nbsp; &nbsp; &nbsp; State:
+        <input type="text"  ng-model="startstate" id="startstate" style="color:black" placeholder="Enter state"/>
+        <br/><br/>
+        To: &nbsp; &nbsp;
+        <input type="text"  ng-model="endcity" id="endcity" style="color:black" placeholder="Enter city"/>
+        &nbsp; &nbsp; &nbsp; State:
+        <input type="text"  ng-model="endstate" id="endstate" style="color:black" placeholder="Enter state" />
+        &nbsp;<br/><br/>
+        <button id="btn" ng-click="calcRoute(); getWeather()" style="color:black;">
+            GO
+        </button>
+        <br/></br>
+    </div>
+
+    <div id="map-canvas" style="height: 400px;"></div>
+
+    <br/></br>
+    <div id="parent_div_1" class="weatherModule">
+        <h5><b>City1 weather</b></h5>
+        <p class="currentConditions" ng-model="srccurrentweather"></p>
+        {{srccurrentweather}}
+    </div>
+
+    <div id="parent_div_2" class="weatherModule">
+        <h5><b>City2 weather<b></b></h5>
+        <p class="currentConditions" ng-model="destcurrentweather"></p>
+        {{destcurrentweather}}
+    </div>
+</div>
+
+</body>
+</html>
+<script>
+    if (typeof(Storage) !== "undefined") {
+        document.getElementById("name").innerHTML = localStorage.getItem("lastname")+",";
+    }
+</script>
+
+<script>
+    angular.module('GoogleDirection', [])
+        .controller('googlemapoutput', function ($scope, $http) {
+            var map;
+            var mapOptions;
+            var directionsDisplay = new google.maps.DirectionsRenderer({
+                draggable: true
+            });
+            var directionsService = new google.maps.DirectionsService();
+            $scope.initialize = function () {
+                var input = document.getElementById('startcity');
+                var autocomplete = new google.maps.places.Autocomplete(input);
+                var input = document.getElementById('startstate');
+                var autocomplete = new google.maps.places.Autocomplete(input);
+                var input = document.getElementById('endcity');
+                var autocomplete = new google.maps.places.Autocomplete(input);
+                var input = document.getElementById('endstate');
+                var autocomplete = new google.maps.places.Autocomplete(input);
+                var pos = new google.maps.LatLng(0, 0);
+                var mapOptions = {
+                    zoom: 3,
+                    center: pos
+                };
+                map = new google.maps.Map(document.getElementById('map-canvas'),
+                    mapOptions);
+            };
+            $scope.calcRoute = function () {
+                var end = document.getElementById('endcity').value;
+                var start = document.getElementById('startcity').value;
+
+                var request = {
+                    origin: start,
+                    destination: end,
+                    travelMode: google.maps.TravelMode.DRIVING
+                };
+                directionsService.route(request, function (response, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
+                        directionsDisplay.setMap(map);
+                        directionsDisplay.setDirections(response);
+                        console.log(status);
+                    }
+                });
+            };
+            $scope.getWeather = function(){
+                var ecity = document.getElementById('endcity').value;
+                var scity = document.getElementById('startcity').value;
+                var estate = document.getElementById('endstate').value;
+                var sstate = document.getElementById('startstate').value;
+
+                $http.get('http://api.wunderground.com/api/36b799dc821d5836/conditions/q/'+sstate+'/'+scity+'.json').success(function(data) {
+
+                    console.log(data);
+                    temp = data.current_observation.temp_f;
+                    icon = data.current_observation.icon_url;
+                    weather = data.current_observation.weather;
+                    console.log(temp);
+                    $scope.srccurrentweather = "Currently " +temp +"  Fahrenheit and " + weather + "";
+                })
+
+                $http.get('http://api.wunderground.com/api/36b799dc821d5836/conditions/q/'+estate+'/'+ecity+'.json').success(function(data) {
+
+                    console.log(data);
+                    temp = data.current_observation.temp_f;
+                    icon = data.current_observation.icon_url;
+                    weather = data.current_observation.weather;
+                    console.log(temp);
+                    $scope.destcurrentweather = "Currently " +temp +"  Fahrenheit and " + weather + "";
+                })
+            };
+            google.maps.event.addDomListener(window, 'load', $scope.initialize);
+        });
+</script>

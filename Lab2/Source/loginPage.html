@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+<style>
+    form {
+        border: 3px solid #f1f1f1;
+        margin-left: 400px;
+        margin-right: 400px;
+    }
+
+    input[type=text], input[type=password] {
+        width: 85%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: floralwhite;
+        color: black;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
+
+
+    .imgcontainer {
+        text-align: center;
+        margin: 24px 0 12px 0;
+    }
+
+    img.avatar {
+        width: 70%;
+    }
+
+    .container {
+        padding: 16px;
+        color: floralwhite;
+    }
+
+    span.psw {
+        float: left;
+        padding-top: 16px;
+    }
+
+    /* Change styles for span and cancel button on extra small screens */
+    @media screen and (max-width: 300px) {
+        span.psw {
+            display: block;
+            float: none;
+        }
+
+    }
+
+    h2 {
+        text-align: center;
+        color: floralwhite;
+    }
+    body {
+        background-image: url("pic/back3.jpg") ;
+    }
+</style>
+</head>
+<body>
+
+<h2>LOGIN PAGE</h2>
+
+<form action="home.html">
+    <div class="imgcontainer">
+        <img src="pic/member_area.jpg" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+        <label><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="usrname" id="uname" required>
+        <br>
+        <label><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="pswd" required>
+        <button type="submit" onclick="addtext()">Login</button>
+        <button type="submit"><a href="register.html" style="color: black; text-decoration: none;">Register</a></button>
+        <br>
+        <input type="checkbox" checked="checked"> Remember me
+    </div>
+    <div class="container" style="background-color:#f1f1f1">
+        <span class="psw"><a href="#" style="color: floralwhite">Forgot password?</a></span>
+    </div>
+</form>
+
+</body>
+</html>
+<script type="text/javascript">
+    function addtext()
+    {
+        fname = document.getElementById('uname').value;
+        if (typeof(Storage) !== "undefined") {
+            // Store
+            localStorage.setItem("lastname", fname);
+            window.location.href="home.html";
+        }
+
+    }
+</script>
