@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+<style>
+    form {
+        border: 3px solid #f1f1f1;
+        margin-left: 400px;
+        margin-right: 400px;
+    }
+
+    input[type=text], input[type=password] {
+        width: 85%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: floralwhite;
+        color: black;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
+
+
+    .imgcontainer {
+        text-align: center;
+        margin: 24px 0 12px 0;
+    }
+
+    img.avatar {
+        width: 70%;
+    }
+
+    .container {
+        padding: 16px;
+        color: floralwhite;
+    }
+
+    span.psw {
+        float: left;
+        padding-top: 16px;
+    }
+
+    /* Change styles for span and cancel button on extra small screens */
+    @media screen and (max-width: 300px) {
+        span.psw {
+            display: block;
+            float: none;
+        }
+
+    }
+
+    h2 {
+        text-align: center;
+        color: floralwhite;
+    }
+    body {
+        background-image: url("pic/back3.jpg") ;
+    }
+</style>
+</head>
+<body>
+
+<h2>LOGIN PAGE</h2>
+
+<form action="home.html">
+    <div class="imgcontainer">
+        <img src="pic/member_area.jpg" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+        <label><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="usrname" id="uname" required>
+        <br>
+        <label><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="pswd" required>
+        <button type="submit" onclick="addtext()">Login</button>
+        <button type="submit"><a href="register.html" style="color: black; text-decoration: none;">Register</a></button>
+        <button onclick="login()"><a href="home.html" style="color: black; text-decoration: none;">Gmail Login</button>
+        <br>
+        <input type="checkbox" checked="checked"> Remember me
+    </div>
+    <div class="container" style="background-color:#f1f1f1">
+        <span class="psw"><a href="#" style="color: floralwhite">Forgot password?</a></span>
+    </div>
+</form>
+
+</body>
+</html>
+<script type="text/javascript">
+    function addtext()
+    {
+        fname = document.getElementById('uname').value;
+        if (typeof(Storage) !== "undefined") {
+            // Store
+            localStorage.setItem("lastname", fname);
+            window.location.href="home.html";
+        }
+
+    }
+</script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js"></script>
+<script data-require="jquery" data-semver="2.0.3" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+
+    function logout()
+    {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
+    }
+    function login()
+    {
+        var myParams = {
+            'clientid' : '738433218081-7111mc5s0vgkfgqjoaeahr87alrpd3vm.apps.googleusercontent.com',
+            'cookiepolicy' : 'single_host_origin',
+            'callback' : 'loginCallback',
+            'approvalprompt':'force',
+            'scope' : 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read'
+        };
+        gapi.auth.signIn(myParams);
+        window.location.href("home.html");
+    }
+
+    function loginCallback(result)
+    {
+        if(result['status']['signed_in'])
+        {
+            var request = gapi.client.plus.people.get(
+                {
+                    'userId': 'me'
+                });
+            request.execute(function (resp)
+            {
+                var email = '';
+                if(resp['emails'])
+                {
+                    for(i = 0; i < resp['emails'].length; i++)
+                    {
+                        if(resp['emails'][i]['type'] == 'account')
+                        {
+                            email = resp['emails'][i]['value'];
+                        }
+                    }
+                }
+
+                var str = "Name:" + resp['displayName'] + "<br>";
+                str += "Image:" + resp['image']['url'] + "<br>";
+                str += "<img src='" + resp['image']['url'] + "' /><br>";
+
+                str += "URL:" + resp['url'] + "<br>";
+                str += "Email:" + email + "<br>";
+                document.getElementById("profile").innerHTML = str;
+            });
+
+        }
+
+    }
+    function onLoadCallback()
+    {
+        gapi.client.setApiKey('AIzaSyA23Qn5CJLuLm1_rfY1qBPa6i1s1Gi2J1w');
+        gapi.client.load('plus', 'v1',function(){});
+    }
+
+</script>
+<script type="text/javascript">
+    (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/client.js?onload=onLoadCallback';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>

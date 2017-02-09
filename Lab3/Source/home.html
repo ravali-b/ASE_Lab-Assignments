@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <style>
+        form {
+            border: 3px solid #f1f1f1;
+            margin-left: 400px;
+            margin-right: 400px;
+        }
+
+        input[type=text], input[type=password] {
+            width: 75%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: content-box;
+        }
+
+        button {
+            background-color: floralwhite;
+            color: black;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+
+        .welcome {
+            text-align: center;
+            margin: 24px 0 12px 0;
+        }
+
+        img.avatar {
+            width: 70%;
+        }
+
+        .container {
+            padding: 16px;
+            color: floralwhite;
+        }
+
+        span.psw {
+            float: left;
+            padding-top: 16px;
+        }
+
+        /* Change styles for span and cancel button on extra small screens */
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+
+        }
+
+        h2 {
+            text-align: center;
+            color: floralwhite;
+        }
+        body {
+            background-image: url("pic/back3.jpg") ;
+        }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/knowledge/kgsearch/widget/1.0/widget.min.css">
+    <style>
+        .kge-search-picker {
+            width: <DROPDOWN_MENU_WIDTH>;
+        }
+    </style>
+    <script type="text/javascript" src="https://www.gstatic.com/knowledge/kgsearch/widget/1.0/widget.min.js"></script>
+
+</head>
+<body>
+<h2>HOME PAGE</h2>
+
+<form action="home.html">
+    <h2 style="color: floralwhite">Welcome to Home Page <label id="name"></label></h2>
+    <div class="welcome">
+        <img src="pic/welcome.jpg" alt="Avatar" class="avatar">
+    </div>
+    <script>
+        (function() {
+            var cx = '003318654583123334531:9jyoi0hh_bg';
+            var gcse = document.createElement('script');
+            gcse.type = 'text/javascript';
+            gcse.async = true;
+            gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(gcse, s);
+        })();
+    </script>
+    <gcse:search></gcse:search>
+    <div class="container">
+        <h3>Google Knowledge Graph Search API</h3>
+        <input type="text" id="myInput">
+        <script type="text/javascript">
+            KGSearchWidget('AIzaSyA23Qn5CJLuLm1_rfY1qBPa6i1s1Gi2J1w', document.getElementById("myInput"), {});
+        </script>
+        <br>
+        <button type="submit"><a href="loginPage.html" style="color: black; text-decoration: none;">Sign Out</button>
+        <br>
+        <br>
+    </div>
+    <div class="container" style="background-color:#f1f1f1">
+    </div>
+</form>
+</body>
+</html>
+<script>
+    if (typeof(Storage) !== "undefined") {
+        document.getElementById("name").innerHTML = localStorage.getItem("lastname")+",";
+    }
+</script>
