@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ui_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/bg"
+    tools:context="com.google.vr.sdk.samples.treasurehunt.MainActivity">
+
+    <TextView
+        android:text="Google Cardboard Application"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_marginTop="32dp"
+        android:textColor="@android:color/holo_blue_bright"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textStyle="normal|bold"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Treasure Hunt, a virtual reality application which works with any VR viewer and uses touch events to interact with the system. "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textColor="@android:color/background_light"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="45dp"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:text="Start Game"
+        android:onClick="start"
+        android:elevation="11dp"
+        android:textAlignment="center"
+        android:background="@android:color/background_light"
+        android:textColor="@android:color/background_dark"
+        android:backgroundTint="@color/alignment_marker_color"
+        style="@android:style/Widget.Button"
+        android:layout_marginTop="22dp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/th2"
+        android:id="@+id/imageView"
+        android:visibility="visible"
+        android:layout_marginTop="27dp"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
+
