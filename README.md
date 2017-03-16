@@ -11,3 +11,5 @@ Lab Assignment 5 wiki page - https://github.com/ravali-b/ASE_Lab-Assignments/wik
 Lab Assignment 6 wiki page - https://github.com/ravali-b/ASE_Lab-Assignments/wiki/Lab-Assignment-6
 
 Lab Assignment 7 wiki page - https://github.com/ravali-b/ASE_Lab-Assignments/wiki/Lab-Assignment-7
+
+Lab Assignment 8 wiki page - https://github.com/ravali-b/ASE_Lab-Assignments/wiki/Lab-Assignment-8
