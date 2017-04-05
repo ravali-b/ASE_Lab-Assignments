@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+
+    <link rel="stylesheet" href="css/style1.css">
+    <style>
+        h1 {
+            color:darkblue;
+            font-size: 30px;
+        }
+        h2 {
+            color:darkblue;
+            font-size: 30px;
+        }
+        table, th , td  {
+            border:3px solid lightblue;
+            border-collapse: collapse;
+            padding: 20px;
+        }
+        table tr:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+        table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+    </style>
+    <script type="text/javascript" src="http://code.angularjs.org/1.1.1/angular.js"></script>
+    <script type="text/javascript" src="http://code.angularjs.org/1.1.1/angular-resource.js"></script>
+    <script type="text/javascript" src="http://code.angularjs.org/1.1.1/angular-sanitize.js"></script>
+    <script src="app.js"></script>
+    <script src="no.js"></script>
+
+</head>
+<body ng-app="demoMongo" id="body" background="calm.jpg" style="background-size:cover">
+
+<h1>Users in Database</h1>
+<div id="id01"></div>
+
+<script>
+    var xmlhttp = new XMLHttpRequest();
+    var url = "https://api.mongolab.com/api/1/databases/planovac/collections/lab?apiKey=1fB-Vh6r9XKxu-n0eW_4OeXvlAEViZl3";
+
+    xmlhttp.onreadystatechange=function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myFunction(this.responseText);
+        }
+    }
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+
+    function myFunction(response) {
+        var arr = JSON.parse(response);
+        var i;
+        var out = "<center><table> <tr><td><strong>Sno</strong></td><td><strong>First Name</strong></td><td><strong>Last Name</strong></td><td><strong>Email Address</strong></td><td><strong>ID</strong></td></tr>";
+
+        for(i = 0; i < arr.length; i++) {
+            out += "<tr><td>"+i+"</td><td>" +
+                    arr[i].fname +
+                    "</td><td>" +
+                    arr[i].lname +
+                    "</td><td>" +
+                    arr[i].email +
+                    "</td><td>" +
+                    arr[i]._id["$oid"] +
+                    "</td></tr>";
+        }
+        out += "</table></center>";
+        document.getElementById("id01").innerHTML = out;
+    }
+</script>
+<div ng-controller="MongoRestController" ng-init="disp()">
+
+    <!--<div id="container" class="g1">-->
+
+    </div><br>
+    <div class="fl1">
+        <center><h2>Update User Information</h2></center>
+        <center><form method="post" action="http://127.0.0.1:8081/update">
+
+            <input type="text" class="textbox1" name="id2" id="id2" placeholder="Enter the ID" />
+            <input type="text" class="textbox1" name="fn" placeholder="Enter First Name" />
+            <input type="text" class="textbox1" name="ln" placeholder="Enter Last Name"/>
+            <input type="text" class="textbox1" name="ml" placeholder="Enter E-Mail"/>
+            <input type="submit" class="i1" value="Update" >
+        </form></center></div>
+    <div class="fl2">
+        <center><h2>Delete User Information</h2></center>
+
+        <center><form method="post" action="http://127.0.0.1:8081/delete" autocomplete="on">
+            <input type="text" class="textbox1" name="id1" id="id1" placeholder="Enter the ID from above table" />
+            <input type="submit" class="i1" value="Delete"  >
+
+        </form></center></div>
+    <script>    function sync() {
+        document.getElementById('id1').value=document.getElementById('id2').value;
+    }
+    </script>
+
+
+</div>
+
+</body>
+</html>
+

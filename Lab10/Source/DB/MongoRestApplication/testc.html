@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        h1 {
+            border-bottom: 3px solid #cc9900;
+            color: #996600;
+            font-size: 30px;
+        }
+        table, th , td  {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        table tr:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+        table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Customers</h1>
+<div id="id01"></div>
+<div id="id02"></div>
+
+<script>
+    var xmlhttp = new XMLHttpRequest();
+    var url = "https://api.mongolab.com/api/1/databases/planovac/collections/lab?apiKey=1fB-Vh6r9XKxu-n0eW_4OeXvlAEViZl3";
+
+    xmlhttp.onreadystatechange=function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myFunction(this.responseText);
+        }
+    }
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+
+    function myFunction(response) {
+        var arr = JSON.parse(response);
+        var i;
+
+        var valiu =document.getElementById("form-username").value;
+        var valip =document.getElementById("form-password").value;
+        var arr1= JSON.parse(response);
+        for (i=0; i<arr1.length; i++)
+        {
+            hello =arr[i].fname;
+            hey = arr[i].password;
+            if (valiu==hello && valip==hey)
+            {
+                return true;
+            }
+
+        }
+
+    }
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" class="h1">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <script type="text/javascript" src="http://code.angularjs.org/1.1.1/angular.js"></script>
+    <script type="text/javascript" src="http://code.angularjs.org/1.1.1/angular-resource.js"></script>
+    <script type="text/javascript" src="http://code.angularjs.org/1.1.1/angular-sanitize.js"></script>
+    <script src="app.js"></script>
+    <script src="no.js"></script>
+    <link rel="stylesheet" href="Users_CSS.css" type="text/css">
+</head>
+<body ng-app="demoMongo" id="body">
+
+<div ng-controller="MongoRestController" ng-init="disp()">
+    <div class="h5"><h2>Users</h2></div>
+    <div id="container" class="g1">
+
+    </div><br>
+    <div class="fl1">
+    <h2>Update User Details</h2>
+    <form method="post" action="http://127.0.0.1:8081/update">
+        ID:<br>
+        <input type="text" class="textbox1" name="id2" id="id2" placeholder="Enter the ID" />
+        <input type="checkbox" value="" onclick="sync()"/>Click Here to Copy the same ID<br>
+        First Name:<br>
+        <input type="text" class="textbox1" name="fn" placeholder="Enter First Name" /><br>
+        Last Name:<br>
+        <input type="text" class="textbox1" name="ln" placeholder="Enter Last Name"/><br>
+        E-Mail:<br>
+        <input type="text" class="textbox1" name="ml" placeholder="Enter E-Mail"/><br>
+        <input type="submit" class="i1" value="Update" >
+    </form></div>
+    <div class="fl2">
+    <h2>Delete User Record</h2>
+        ID:<br>
+    <form method="post" action="http://127.0.0.1:8081/delete" autocomplete="on">
+    <input type="text" class="textbox1" name="id1" id="id1" placeholder="Enter the ID from above table" /><br>
+    <input type="submit" class="i1" value="Delete"  >
+
+    </form></div>
+    <script>    function sync() {
+        document.getElementById('id1').value=document.getElementById('id2').value;
+    }
+    </script>
+
+
+</div>
+
+</body>
+</html>

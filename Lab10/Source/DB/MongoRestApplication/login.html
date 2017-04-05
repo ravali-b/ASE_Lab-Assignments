@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+        <script>
+            function validataionn() {
+                var j=0;
+
+                var xmlhttp = new XMLHttpRequest();
+                var url = "https://api.mongolab.com/api/1/databases/planovac/collections/lab?apiKey=1fB-Vh6r9XKxu-n0eW_4OeXvlAEViZl3";
+
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        myFunction(this.responseText);
+                    }
+                }
+                xmlhttp.open("GET", url, true);
+                xmlhttp.send();
+
+                function myFunction(response) {
+                    var arr = JSON.parse(response);
+                    var i;
+                    var valiu = document.getElementById("form-username").value;
+                    var valip = document.getElementById("form-password").value;
+                    var arr1 = JSON.parse(response);
+                    for (i = 0; i < arr1.length; i++) {
+                        hello = arr[i].fname;
+                        hey = arr[i].password;
+                        if (valiu == hello && valip == hey) {
+
+                            window.alert("login success");
+                            form.focus();
+                            j=1;
+
+
+                        }
+                        else {
+
+                            window.alert("login fail");
+                            form.focus();
+                            j=0;
+                        }
+                    }
+                }
+
+            if (j==1){return true;}
+            else {return false;}
+            }
+    </script>
+
+</head>
+<body>
+<form method="post" action="http://localhost:8080/BugBooks/logu" onsubmit="return validataionn()">
+
+    <h1>Login</h1>
+    <table class="center">
+        <tr>
+            <td>Username:</td>
+            <td><input type="text" name="username" id="form-username"/></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="password" name="password" id="form-password"/></td>
+        </tr>
+    </table>
+    <input type="submit" value="Submit"/>
+
+</form>
+</body>
+</html>
+
+

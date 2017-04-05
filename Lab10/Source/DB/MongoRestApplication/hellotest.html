@@ -1,0 +1,61 @@
+<html>
+
+<head>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<input type="text" id="i2"></br></br>
+<input type="text" id="x2"></br></br>
+<input type="text" id="y"></br></br>
+<!--  <progress max="100" id="prog" value="">
+ </progress> -->
+
+<input type="submit" onclick="move()">
+
+
+<div id="out">b</div>
+
+<br>
+
+
+<script>
+    function move()
+    {
+
+
+
+
+        var inc=document.getElementById("i2").value;
+        var exp=document.getElementById("x2").value;
+        var xmlhttp = new XMLHttpRequest();
+        var url="http://localhost:8080/RESTExample/restexample/savings/"+inc+"/"+exp;
+        //+inc+"/"+exp;
+        //  document.write(url);
+        xmlhttp.onreadystatechange=function() {
+            if (this.readyState == 4 && this.status == 200) {
+                myFunction(this.responseText);
+            }
+        }
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+        function myFunction(response) {
+            var obj = JSON.parse(response);
+            // document.getElementById("my_result").innerHTML = '<img src="'+obj.hits[1].webformatURL+'"/>';
+            // document.getElementById("out").innerHTML = obj.income;
+            document.write(obj.income);
+        }
+        //     $.getJSON(url, function(data) {
+        //   document.write(data.income);
+        // }
+
+    }
+
+
+
+</script>
+
+</body>
+</html>
