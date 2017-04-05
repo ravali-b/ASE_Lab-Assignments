@@ -18,4 +18,4 @@ Lab Assignment 9 wiki page - https://github.com/ravali-b/ASE_Lab-Assignments/wik
 
 Lab Assignment 10 wiki page - https://github.com/ravali-b/ASE_Lab-Assignments/wiki/Lab-Assignment-10
 
-AWS link -  Sample-env.h4mckf9npf.us-west-2.elasticbeanstalk.com
+AWS link -  http://sample-env.h4mckf9npf.us-west-2.elasticbeanstalk.com/
